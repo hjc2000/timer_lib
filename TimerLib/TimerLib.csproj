@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>TimerLib</Title>
+    <PackageProjectUrl>https://gitcode.net/qq_36148047/timerlib.git</PackageProjectUrl>
+    <RepositoryUrl>https://gitcode.net/qq_36148047/timerlib.git</RepositoryUrl>
+    <Version>1.0.5</Version>
+    <Authors>hjc</Authors>
+  </PropertyGroup>
+
+</Project>
