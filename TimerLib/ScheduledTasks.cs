@@ -9,7 +9,6 @@ public class ScheduledTasks
 	/// <param name="milliseconds">持续时间</param>
 	/// <param name="interval">间隔</param>
 	/// <param name="action"></param>
-	/// <param name="param"></param>
 	public static void ExecuteForAPeriodOfTime(int milliseconds, int interval, Action action)
 	{
 		System.Timers.Timer timer = new()
