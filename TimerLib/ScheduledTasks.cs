@@ -10,7 +10,7 @@ public class ScheduledTasks
 	/// <param name="interval">间隔</param>
 	/// <param name="action"></param>
 	/// <param name="param"></param>
-	public static void ExecuteForAPeriodOfTime(int milliseconds, int interval, Action<object?> action, object? param)
+	public static void ExecuteForAPeriodOfTime(int milliseconds, int interval, Action action)
 	{
 		System.Timers.Timer timer = new()
 		{
@@ -23,7 +23,7 @@ public class ScheduledTasks
 
 		timer.Elapsed += (object? source, ElapsedEventArgs e) =>
 		{
-			action.Invoke(param);
+			action.Invoke();
 			if ((e.SignalTime - startTime).TotalMilliseconds >= milliseconds)
 			{
 				timer.Stop();
@@ -32,7 +32,7 @@ public class ScheduledTasks
 		};
 	}
 
-	public static void ExecuteAfterAPeriodOfTime(int milliseconds, Action<object?> action, object? param)
+	public static void ExecuteAfterAPeriodOfTime(int milliseconds, Action action)
 	{
 		System.Timers.Timer timer = new()
 		{
@@ -45,7 +45,7 @@ public class ScheduledTasks
 		{
 			if ((e.SignalTime - startTime).TotalMilliseconds >= milliseconds)
 			{
-				action.Invoke(param);
+				action.Invoke();
 				timer.Stop();
 				timer.Dispose();
 			}
@@ -54,7 +54,12 @@ public class ScheduledTasks
 		timer.Start();
 	}
 
-	public static void ExecuteAfterCancel(int interval, Action<object?, CancellationTokenSource> action, object? param)
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="interval">时间间隔，单位 ms</param>
+	/// <param name="action"></param>
+	public static void ExecuteAfterCancel(int interval, Action<CancellationTokenSource> action)
 	{
 		CancellationTokenSource cts = new CancellationTokenSource();
 		CancellationToken token = cts.Token;
@@ -66,7 +71,7 @@ public class ScheduledTasks
 		};
 		timer.Elapsed += (object? source, ElapsedEventArgs e) =>
 		{
-			action.Invoke(param, cts);
+			action.Invoke(cts);
 			if (token.IsCancellationRequested)
 			{
 				timer.Stop();
