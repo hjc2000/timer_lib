@@ -68,6 +68,7 @@ public class ScheduledTasks
 			AutoReset = true,
 			Enabled = true,
 		};
+
 		timer.Elapsed += (object? source, ElapsedEventArgs e) =>
 		{
 			action.Invoke(cts);
@@ -75,6 +76,7 @@ public class ScheduledTasks
 			{
 				timer.Stop();
 				timer.Dispose();
+				cts.Dispose();
 			}
 		};
 	}

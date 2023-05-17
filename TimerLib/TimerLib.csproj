@@ -8,7 +8,7 @@
     <Title>TimerLib</Title>
     <PackageProjectUrl>https://github.com/hjc2000/timer_lib</PackageProjectUrl>
     <RepositoryUrl>https://github.com/hjc2000/timer_lib</RepositoryUrl>
-    <Version>1.0.8</Version>
+    <Version>1.0.9</Version>
     <Authors>hjc</Authors>
   </PropertyGroup>
 
