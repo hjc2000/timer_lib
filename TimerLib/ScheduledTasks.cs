@@ -22,8 +22,16 @@ public class ScheduledTasks
 
 		timer.Elapsed += (object? source, ElapsedEventArgs e) =>
 		{
-			action.Invoke();
-			if ((e.SignalTime - startTime).TotalMilliseconds >= milliseconds)
+			try
+			{
+				action.Invoke();
+				if ((e.SignalTime - startTime).TotalMilliseconds >= milliseconds)
+				{
+					timer.Stop();
+					timer.Dispose();
+				}
+			}
+			catch
 			{
 				timer.Stop();
 				timer.Dispose();
@@ -72,8 +80,17 @@ public class ScheduledTasks
 
 		timer.Elapsed += (object? source, ElapsedEventArgs e) =>
 		{
-			action.Invoke(cts);
-			if (token.IsCancellationRequested)
+			try
+			{
+				action.Invoke(cts);
+				if (token.IsCancellationRequested)
+				{
+					timer.Stop();
+					timer.Dispose();
+					cts.Dispose();
+				}
+			}
+			catch
 			{
 				timer.Stop();
 				timer.Dispose();
