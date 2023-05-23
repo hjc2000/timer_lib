@@ -15,7 +15,6 @@ public class ScheduledTasks
 		{
 			Interval = interval,
 			AutoReset = true,
-			Enabled = true,
 		};
 
 		DateTime startTime = DateTime.Now;
@@ -37,6 +36,7 @@ public class ScheduledTasks
 				timer.Dispose();
 			}
 		};
+		timer.Start();
 	}
 
 	public static void ExecuteAfterAPeriodOfTime(int milliseconds, Action action)
@@ -73,7 +73,6 @@ public class ScheduledTasks
 		{
 			Interval = interval,
 			AutoReset = true,
-			Enabled = true,
 		};
 
 		timer.Elapsed += (object? source, ElapsedEventArgs e) =>
@@ -93,5 +92,6 @@ public class ScheduledTasks
 				timer.Dispose();
 			}
 		};
+		timer.Start();
 	}
 }
