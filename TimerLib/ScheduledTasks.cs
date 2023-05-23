@@ -67,10 +67,8 @@ public class ScheduledTasks
 	/// <param name="interval">定时间隔，单位 ms</param>
 	/// <param name="action">时间到达后的回调函数</param>
 	/// <returns>用于取消定时任务的令牌</returns>
-	public static CancellationTokenSource ExecuteAfterCancel(int interval, Action<CancellationTokenSource> action)
+	public static void ExecuteAfterCancel(int interval, Action action, CancellationToken token)
 	{
-		CancellationTokenSource cts = new();
-		CancellationToken token = cts.Token;
 		System.Timers.Timer timer = new()
 		{
 			Interval = interval,
@@ -82,21 +80,18 @@ public class ScheduledTasks
 		{
 			try
 			{
-				action.Invoke(cts);
+				action.Invoke();
 				if (token.IsCancellationRequested)
 				{
 					timer.Stop();
 					timer.Dispose();
-					cts.Dispose();
 				}
 			}
 			catch
 			{
 				timer.Stop();
 				timer.Dispose();
-				cts.Dispose();
 			}
 		};
-		return cts;
 	}
 }
