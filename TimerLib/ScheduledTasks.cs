@@ -23,11 +23,14 @@ public class ScheduledTasks
 		{
 			try
 			{
-				action.Invoke();
 				if ((e.SignalTime - startTime).TotalMilliseconds >= milliseconds)
 				{
 					timer.Stop();
 					timer.Dispose();
+				}
+				else
+				{
+					action.Invoke();
 				}
 			}
 			catch
@@ -79,11 +82,14 @@ public class ScheduledTasks
 		{
 			try
 			{
-				action.Invoke();
 				if (token.IsCancellationRequested)
 				{
 					timer.Stop();
 					timer.Dispose();
+				}
+				else
+				{
+					action.Invoke();
 				}
 			}
 			catch
